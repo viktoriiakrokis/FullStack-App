@@ -27,7 +27,7 @@ class DbService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names;";
+                const query = "SELECT * FROM names JOIN locations ON names.location_id = locations.id";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -45,19 +45,14 @@ class DbService {
     async insertNewName(name) {
         try {
             const dateAdded = new Date();
-            const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO names (name, date_added) VALUES (?,?);";
+            return await new Promise((resolve, reject) => {
+                const query = "INSERT INTO names (name, date_added, location_id) VALUES (?,?,?);";
 
-                connection.query(query, [name, dateAdded] , (err, result) => {
+                connection.query(query, [name, dateAdded, 1] , (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 })
             });
-            return {
-                id : insertId,
-                name : name,
-                dateAdded : dateAdded
-            };
         } catch (error) {
             console.log(error);
         }
@@ -117,6 +112,30 @@ class DbService {
             console.log(error);
         }
     }
+
+    async getById(id) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM names JOIN locations ON names.location_id = locations.id WHERE names.id = ?;"
+
+                connection.query(query, [id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            const row = response[0];
+            return {
+                id: row['id'],
+                name: row['name'],
+                date_added: row['date_added'],
+                country: row['country']
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Get name by ID from DB + join with location -> get country name
 }
 
 module.exports = DbService;

@@ -1,16 +1,39 @@
+body {
+    height: 100vh;
+    background-color: rgb(236, 225, 236);
+    display: flex;
+}
+
 main {
     width: 50%;
-    margin: 50px auto;
+    margin: 30px auto;
     text-align: center;
+    color: purple;
+    background-color: white;
+    padding: 40px 20px;
+    border: 1px solid;
+    border-radius: 100px;
+    height: fit-content;
+}
+
+button {
+    color: purple;
 }
 
 table {
     margin: 50px auto;
+    color: purple;
+    border-radius: 8px;
 }
 
 table, th, td {
     border-collapse: collapse;
     border: 1px solid #000;
+    color: purple;
+} 
+
+tr {
+    background-color: rgb(236, 225, 236);
 }
 
 th, td {

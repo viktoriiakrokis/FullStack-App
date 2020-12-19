@@ -16,11 +16,12 @@ app.post('/insert', (request, response) => {
     const { name } = request.body;
     const db = dbService.getDbServiceInstance();
     
-    const result = db.insertNewName(name);
+    const result = db.insertNewName(name); // TODO  should i use updatedDB instead of result?
 
     result
-    .then(data => response.json({ data: data}))
-    .catch(err => console.log(err));
+        .then(id => db.getById(id))
+        .then(data => response.json({ data: data })) // instead of this call function db.getById()
+        .catch(err => console.log(err));
 });
 
 // read
