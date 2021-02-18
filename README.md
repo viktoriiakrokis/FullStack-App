@@ -5,3 +5,7 @@ In this video, we will use the Express framework with HTML, CSS, and JavaScript 
 I will show you how to make queries using MySQL and how to connect that to our express app to build a fullstack application.
 
 https://youtu.be/vrj9AohVhPA
+
+Rund backend node app.js
+
+Run frontend - open index.html with life server

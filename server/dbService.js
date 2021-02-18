@@ -27,14 +27,13 @@ class DbService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names JOIN locations ON names.location_id = locations.id";
+                const query = "SELECT names.id AS id, names.name, names.date_added, locations.country FROM names JOIN locations ON names.location_id = locations.id";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })
             });
-            // console.log(response);
             return response;
         } catch (error) {
             console.log(error);

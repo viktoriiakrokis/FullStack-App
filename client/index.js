@@ -87,20 +87,19 @@ addBtn.onclick = function () {
 }
 
 function insertRowIntoTable(data) {
-    console.log(data);
     const table = document.querySelector('table tbody');
     const isTableData = table.querySelector('.no-data');
 
     let tableHtml = "<tr>";
 
-    for (var key in data) {
+    ['id', 'name', 'country', 'date_added'].forEach(key => {
         if (data.hasOwnProperty(key)) {
-            if (key === 'dateAdded') {
+            if (key === 'date_added') {
                 data[key] = new Date(data[key]).toLocaleString();
             }
             tableHtml += `<td>${data[key]}</td>`;
         }
-    }
+    })
 
     tableHtml += `<td><button class="delete-row-btn" data-id=${data.id}>Delete</td>`;
     tableHtml += `<td><button class="edit-row-btn" data-id=${data.id}>Edit</td>`;
